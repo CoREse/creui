@@ -1,6 +1,6 @@
 /* File: test.cpp
  * Author: CRE
- * Last Edited: Wed Dec 21 17:18:36 2016
+ * Last Edited: Wed Dec 21 18:42:39 2016
  */
 
 #include "ui.h"
@@ -18,7 +18,7 @@ void helloWorld(const char * Name)
 class MyUI: public ui
 {
 	public:
-		virtual int analyze(int Count, const char ** Args)
+		virtual int analyze (int Count, char ** Args) override
 		{
 			fprintf(stderr,"I am in!, Count:%d, Args[0]:%s", Count, Args[0]);
 			if (Count<1)
