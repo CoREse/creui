@@ -1,6 +1,6 @@
 /* File: test.cpp
  * Author: CRE
- * Last Edited: Wed Dec 21 18:42:39 2016
+ * Last Edited: Thu Dec 22 16:10:13 2016
  */
 
 #include "ui.h"
@@ -20,7 +20,6 @@ class MyUI: public ui
 	public:
 		virtual int analyze (int Count, char ** Args) override
 		{
-			fprintf(stderr,"I am in!, Count:%d, Args[0]:%s", Count, Args[0]);
 			if (Count<1)
 			{
 				wrongInput();
@@ -33,9 +32,7 @@ class MyUI: public ui
 			}
 			else if (strcmp(Args[0],"Hello")==0)
 			{
-				fprintf(stderr,"I am here!");
-				//addExecutable(helloWorld, "ME!");
-				ToBeExecuted.push_back(bind(helloWorld, "ME!"));
+				addExecutable(helloWorld, "ME!");
 				return 1;
 			}
 			needHelp();

@@ -13,7 +13,7 @@ all: test
 test: $(TEST_OBJS) $(CREUI_OBJS)
 	$(LINK.cpp) $^ -o $@
 
-$(CREUI_OBJS):$(CREUI_HEADERS)
+$(CREUI_OBJS) $(TEST_OBJS):$(CREUI_HEADERS)
 
 clean:
 	rm *.o test

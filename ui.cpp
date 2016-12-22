@@ -1,6 +1,6 @@
 /* File: ui.cpp
  * Author: CRE
- * Last Edited: Wed Dec 21 17:54:36 2016
+ * Last Edited: Thu Dec 22 16:12:25 2016
  */
 
 #include "ui.h"
@@ -20,14 +20,13 @@ ui::~ui()
 void ui::set(int Count, char ** Args)
 {
 	int i=1;
-	if (Count<1)
+	if (Count<=1)
 	{
-		NeedHelp=true;
-		Exit=true;
+		defaults();
 	}
 	while(i<Count)
 	{
-		i+=this->analyze(Count-i, Args+i);
+		i+=analyze(Count-i, Args+i);
 		if (WrongInput)
 		{
 			NeedHelp=true;
@@ -41,6 +40,12 @@ void ui::set(int Count, char ** Args)
 			Exit=true;
 		}
 	}
+}
+
+void ui::defaults()
+{
+	needHelp();
+	exit();
 }
 
 void ui::wrongInput()
@@ -64,7 +69,6 @@ void ui::between()
 
 int ui::analyze(int Count, char ** Args)
 {
-	fprintf(stderr, "masaka ");
 	NeedHelp=true;
 	return Count;
 }
@@ -87,16 +91,8 @@ void ui::printHelp()
 	fprintf(stderr, TheHelp.Format.c_str(), TheHelp.Args);
 }
 
-template<class Fn, class... Args> void ui::addExecutable(Fn&& fn, Args&&... args)
-{
-	va_list argptr;
-	va_start(argptr, fn);
-	ToBeExecuted.push_back(bind<Fn, Args...>(fn, argptr));
-}
-
 int ui::execute()
 {
-	fprintf(stderr, "Exe, NH=%d, Ex=%d, Count=%lu", NeedHelp, Exit, ToBeExecuted.size());
 	if (NeedHelp) printHelp();
 	if (Exit) return 1;
 	for (auto f:ToBeExecuted)
