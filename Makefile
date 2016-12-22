@@ -8,7 +8,7 @@ CREUI_OBJS=ui.o
 CREUI_HEADERS=creui.h ui.h
 TEST_OBJS=test.o
 
-all: test
+all: $(CREUI_OBJS)
 
 test: $(TEST_OBJS) $(CREUI_OBJS)
 	$(LINK.cpp) $^ -o $@
